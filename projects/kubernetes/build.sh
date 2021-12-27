@@ -41,6 +41,7 @@ cp $SRC/cncf-fuzzing/projects/kubernetes/*.go \
 
 
 go mod tidy && go mod vendor
+go get github.com/google/gofuzz/bytesource
 # disable this fuzzer for now
 #compile_go_fuzzer k8s.io/kubernetes/pkg/kubelet/server FuzzRequest fuzz_request
 
