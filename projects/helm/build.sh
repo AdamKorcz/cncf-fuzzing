@@ -12,7 +12,7 @@ mkdir temp-go
 rm -rf /root/.go/*
 tar -C temp-go/ -xzf go1.18.2.linux-amd64.tar.gz
 mv temp-go/go/* /root/.go/
-cd $SRC/distribution
+cd $SRC/helm
 
 mv $SRC/cncf-fuzzing/projects/helm/fs_fuzzer.go \
    $SRC/helm/internal/third_party/dep/fs/
