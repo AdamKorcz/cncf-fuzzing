@@ -77,58 +77,56 @@ mv $SRC/cncf-fuzzing/projects/helm/strvals_fuzzer.go \
 
 go mod download && go mod tidy -go=1.16 && go mod tidy -go=1.17
 go get github.com/AdaLogics/go-fuzz-headers@latest
-compile_go_fuzzer helm.sh/helm/v3/pkg/strvals FuzzStrvalsParse fuzz_strvals_parse
-compile_go_fuzzer helm.sh/helm/v3/internal/resolver FuzzResolve fuzz_resolve
-compile_go_fuzzer helm.sh/helm/v3/pkg/lint FuzzLintAll fuzz_lint_all
-compile_go_fuzzer helm.sh/helm/v3/pkg/releaseutil FuzzSplitManifests fuzz_split_manifests
-compile_go_fuzzer helm.sh/helm/v3/pkg/releaseutil FuzzSortManifests fuzz_sort_manifests
-compile_go_fuzzer helm.sh/helm/v3/pkg/storage FuzzStorage fuzz_storage
-compile_go_fuzzer helm.sh/helm/v3/pkg/provenance FuzzNewFromFiles fuzz_new_from_files
-compile_go_fuzzer helm.sh/helm/v3/pkg/provenance FuzzParseMessageBlock fuzz_parse_message_block
-compile_go_fuzzer helm.sh/helm/v3/pkg/provenance FuzzMessageBlock fuzz_message_block
-compile_go_fuzzer helm.sh/helm/v3/pkg/kube FuzzKubeClient fuzz_kube_client
-compile_go_fuzzer helm.sh/helm/v3/pkg/registry FuzzGetTagMatchingVersionOrConstraint fuzz_get_tag_matching_version_or_constraint
-compile_go_fuzzer helm.sh/helm/v3/pkg/registry FuzzparseReference fuzz_parse_reference
-compile_go_fuzzer helm.sh/helm/v3/pkg/registry FuzzRegistryClient fuzz_registry_client
-compile_go_fuzzer helm.sh/helm/v3/pkg/plugin FuzzFindPlugins fuzz_find_plugins
-compile_go_fuzzer helm.sh/helm/v3/pkg/plugin FuzzLoadAll fuzz_load_all
-compile_go_fuzzer helm.sh/helm/v3/internal/third_party/dep/fs FuzzfixLongPath fuzz_fix_long_path
-compile_go_fuzzer helm.sh/helm/v3/internal/third_party/dep/fs Fuzz_fixLongPath fuzz_fix_long_path_internal
-compile_go_fuzzer helm.sh/helm/v3/internal/third_party/dep/fs FuzzCopyDir fuzz_copy_dir
-compile_go_fuzzer helm.sh/helm/v3/pkg/storage/driver FuzzSqlDriver fuzz_sql_driver
-compile_go_fuzzer helm.sh/helm/v3/pkg/storage/driver FuzzRecords fuzz_records
-compile_go_fuzzer helm.sh/helm/v3/pkg/storage/driver FuzzSecrets fuzz_secrets
-compile_go_fuzzer helm.sh/helm/v3/pkg/storage/driver FuzzMemory fuzz_memory
-compile_go_fuzzer helm.sh/helm/v3/pkg/storage/driver FuzzCfgmaps fuzz_cfgmaps
-compile_go_fuzzer helm.sh/helm/v3/pkg/chart FuzzMetadataValidate fuzz_metadata_validate
-compile_go_fuzzer helm.sh/helm/v3/pkg/chart FuzzDependencyValidate fuzz_dependency_validate
-compile_go_fuzzer helm.sh/helm/v3/pkg/engine FuzzEngineRender fuzz_engine_render
-compile_go_fuzzer helm.sh/helm/v3/pkg/action FuzzActionRun fuzz_action_run
-compile_go_fuzzer helm.sh/helm/v3/pkg/action FuzzShowRun fuzz_show_run
-compile_go_fuzzer helm.sh/helm/v3/pkg/action FuzzDependencyList fuzz_dependency_list
-compile_go_fuzzer helm.sh/helm/v3/pkg/action FuzzActionList fuzz_action_list
-compile_go_fuzzer helm.sh/helm/v3/pkg/action FuzzActionUninstall fuzz_action_uninstall
-compile_go_fuzzer helm.sh/helm/v3/pkg/chart/loader FuzzLoadDir fuzz_load_dir
-compile_go_fuzzer helm.sh/helm/v3/pkg/chartutil FuzzProcessDependencies fuzz_process_dependencies
-compile_go_fuzzer helm.sh/helm/v3/pkg/chartutil FuzzIsChartDir fuzz_is_chart_dir
-compile_go_fuzzer helm.sh/helm/v3/pkg/chartutil FuzzExpandFile fuzz_expand_file
-compile_go_fuzzer helm.sh/helm/v3/pkg/chartutil FuzzCreateFrom fuzz_create_from
-compile_go_fuzzer helm.sh/helm/v3/pkg/repo FuzzIndex fuzz_index
-compile_go_fuzzer helm.sh/helm/v3/pkg/repo FuzzIndexDirectory fuzz_index_directory
-compile_go_fuzzer helm.sh/helm/v3/pkg/repo FuzzDownloadIndexFile fuzz_download_index_file
-compile_go_fuzzer helm.sh/helm/v3/pkg/repo FuzzChartRepositoryLoad fuzz_chart_repository_load
-compile_go_fuzzer helm.sh/helm/v3/pkg/repo FuzzRepoFileUtils fuzz_repo_file_utils
-compile_go_fuzzer helm.sh/helm/v3/pkg/repo FuzzWriteFile fuzz_write_file
+#compile_go_fuzzer helm.sh/helm/v3/pkg/strvals FuzzStrvalsParse fuzz_strvals_parse
+#compile_go_fuzzer helm.sh/helm/v3/internal/resolver FuzzResolve fuzz_resolve
+#compile_go_fuzzer helm.sh/helm/v3/pkg/lint FuzzLintAll fuzz_lint_all
+#compile_go_fuzzer helm.sh/helm/v3/pkg/releaseutil FuzzSplitManifests fuzz_split_manifests
+#compile_go_fuzzer helm.sh/helm/v3/pkg/releaseutil FuzzSortManifests fuzz_sort_manifests
+#compile_go_fuzzer helm.sh/helm/v3/pkg/storage FuzzStorage fuzz_storage
+#compile_go_fuzzer helm.sh/helm/v3/pkg/provenance FuzzNewFromFiles fuzz_new_from_files
+#compile_go_fuzzer helm.sh/helm/v3/pkg/provenance FuzzParseMessageBlock fuzz_parse_message_block
+#compile_go_fuzzer helm.sh/helm/v3/pkg/provenance FuzzMessageBlock fuzz_message_block
+#compile_go_fuzzer helm.sh/helm/v3/pkg/kube FuzzKubeClient fuzz_kube_client
+#compile_go_fuzzer helm.sh/helm/v3/pkg/registry FuzzGetTagMatchingVersionOrConstraint fuzz_get_tag_matching_version_or_constraint
+#compile_go_fuzzer helm.sh/helm/v3/pkg/registry FuzzparseReference fuzz_parse_reference
+#compile_go_fuzzer helm.sh/helm/v3/pkg/registry FuzzRegistryClient fuzz_registry_client
+#compile_go_fuzzer helm.sh/helm/v3/pkg/plugin FuzzFindPlugins fuzz_find_plugins
+#compile_go_fuzzer helm.sh/helm/v3/pkg/plugin FuzzLoadAll fuzz_load_all
+#compile_go_fuzzer helm.sh/helm/v3/internal/third_party/dep/fs FuzzfixLongPath fuzz_fix_long_path
+#compile_go_fuzzer helm.sh/helm/v3/internal/third_party/dep/fs Fuzz_fixLongPath fuzz_fix_long_path_internal
+#compile_go_fuzzer helm.sh/helm/v3/internal/third_party/dep/fs FuzzCopyDir fuzz_copy_dir
+#compile_go_fuzzer helm.sh/helm/v3/pkg/storage/driver FuzzSqlDriver fuzz_sql_driver
+#compile_go_fuzzer helm.sh/helm/v3/pkg/storage/driver FuzzRecords fuzz_records
+#compile_go_fuzzer helm.sh/helm/v3/pkg/storage/driver FuzzSecrets fuzz_secrets
+#compile_go_fuzzer helm.sh/helm/v3/pkg/storage/driver FuzzMemory fuzz_memory
+#compile_go_fuzzer helm.sh/helm/v3/pkg/storage/driver FuzzCfgmaps fuzz_cfgmaps
+#compile_go_fuzzer helm.sh/helm/v3/pkg/chart FuzzMetadataValidate fuzz_metadata_validate
+#compile_go_fuzzer helm.sh/helm/v3/pkg/chart FuzzDependencyValidate fuzz_dependency_validate
+#compile_go_fuzzer helm.sh/helm/v3/pkg/engine FuzzEngineRender fuzz_engine_render
+#compile_go_fuzzer helm.sh/helm/v3/pkg/action FuzzActionRun fuzz_action_run
+#compile_go_fuzzer helm.sh/helm/v3/pkg/action FuzzShowRun fuzz_show_run
+#compile_go_fuzzer helm.sh/helm/v3/pkg/action FuzzDependencyList fuzz_dependency_list
+#compile_go_fuzzer helm.sh/helm/v3/pkg/action FuzzActionList fuzz_action_list
+#compile_go_fuzzer helm.sh/helm/v3/pkg/action FuzzActionUninstall fuzz_action_uninstall
+#compile_go_fuzzer helm.sh/helm/v3/pkg/chart/loader FuzzLoadDir fuzz_load_dir
+#compile_go_fuzzer helm.sh/helm/v3/pkg/chartutil FuzzProcessDependencies fuzz_process_dependencies
+#compile_go_fuzzer helm.sh/helm/v3/pkg/chartutil FuzzIsChartDir fuzz_is_chart_dir
+#compile_go_fuzzer helm.sh/helm/v3/pkg/chartutil FuzzExpandFile fuzz_expand_file
+#compile_go_fuzzer helm.sh/helm/v3/pkg/chartutil FuzzCreateFrom fuzz_create_from
+#compile_go_fuzzer helm.sh/helm/v3/pkg/repo FuzzIndex fuzz_index
+#compile_go_fuzzer helm.sh/helm/v3/pkg/repo FuzzIndexDirectory fuzz_index_directory
+#compile_go_fuzzer helm.sh/helm/v3/pkg/repo FuzzDownloadIndexFile fuzz_download_index_file
+#compile_go_fuzzer helm.sh/helm/v3/pkg/repo FuzzChartRepositoryLoad fuzz_chart_repository_load
+#compile_go_fuzzer helm.sh/helm/v3/pkg/repo FuzzRepoFileUtils fuzz_repo_file_utils
+#compile_go_fuzzer helm.sh/helm/v3/pkg/repo FuzzWriteFile fuzz_write_file
 
-
-
-sed 's/go 1.16/go 1.18/g' -i $SRC/helm/go.mod
+sed 's/go 1.17/go 1.18/g' -i $SRC/helm/go.mod
 
 mv $SRC/cncf-fuzzing/projects/helm/ignore_fuzzer_test.go \
    $SRC/helm/internal/ignore/
 
 ###go mod download && gotip mod tidy
-go get github.com/AdamKorcz/go-118-fuzz-build/utils@7bed8f92ea820f668efab099ec774d548f1873a8
+go get github.com/AdamKorcz/go-118-fuzz-build/utils@latest
 compile_native_go_fuzzer helm.sh/helm/v3/internal/ignore FuzzIgnoreParse fuzz_ignore_parse
 
 zip $OUT/fuzz_create_from_seed_corpus.zip $SRC/helm/pkg/chartutil/testdata/frobnitz/*
