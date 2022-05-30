@@ -128,7 +128,7 @@ mv $SRC/cncf-fuzzing/projects/helm/ignore_fuzzer_test.go \
    $SRC/helm/internal/ignore/
 
 gotip mod download && gotip mod tidy
-gotip get github.com/AdamKorcz/go-118-fuzz-build/utils
+gotip get github.com/AdamKorcz/go-118-fuzz-build/utils@latest
 compile_native_go_fuzzer helm.sh/helm/v3/internal/ignore FuzzIgnoreParse fuzz_ignore_parse
 
 zip $OUT/fuzz_create_from_seed_corpus.zip $SRC/helm/pkg/chartutil/testdata/frobnitz/*
