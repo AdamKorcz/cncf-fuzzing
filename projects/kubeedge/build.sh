@@ -8,6 +8,8 @@ cd $SRC/kubeedge/staging/src/github.com/kubeedge/viaduct
 sed '94d' -i $SRC/kubeedge/staging/src/github.com/kubeedge/viaduct/pkg/translator/message.go
 compile_go_fuzzer github.com/kubeedge/viaduct/pkg/lane FuzzLaneReadMessage fuzz_lane_read_message
 
+cp $SRC/cncf-fuzzing/projects/kubeedge/devicetwin_fuzzer.go $SRC/kubeedge/edge/pkg/devicetwin/
+
 cp $SRC/cncf-fuzzing/projects/kubeedge/dtmanager_fuzzer.go $SRC/kubeedge/edge/pkg/devicetwin/dtmanager/
 mv $SRC/kubeedge/edge/pkg/devicetwin/dtmanager/twin_test.go $SRC/kubeedge/edge/pkg/devicetwin/dtmanager/twint_test_fuzz.go
 cd $SRC/kubeedge
@@ -30,6 +32,7 @@ sed 's/klog\./\/\/klog\./g' -i $SRC/kubeedge/edge/pkg/devicetwin/dtmanager/devic
 sed 's/\"k8s\.io\/klog\/v2"/\/\/\"k8s\.io\/klog\/v2\"/g' -i $SRC/kubeedge/edge/pkg/devicetwin/dtmanager/device.go
 
 compile_go_fuzzer github.com/kubeedge/kubeedge/edge/pkg/devicetwin/dtmanager FuzzdealTwinActions fuzz_deal_twin_actions
+compile_go_fuzzer github.com/kubeedge/kubeedge/edge/pkg/devicetwin FuzzclassifyMsg fuzz_classifyMsg
 
 cp $SRC/cncf-fuzzing/projects/kubeedge/udsserver_fuzzer.go $SRC/kubeedge/cloud/pkg/cloudhub/servers/udsserver/
 compile_go_fuzzer github.com/kubeedge/kubeedge/cloud/pkg/cloudhub/servers/udsserver FuzzExtractMessage fuzz_ExtractMessage
