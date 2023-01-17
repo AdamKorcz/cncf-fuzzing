@@ -27,7 +27,7 @@ func FuzzRouteReconciler(f *testing.F) {
 		if errs != nil {
 			t.Skip()
 		}
-		rev := &serving_v1
+		rev := &serving_v1.Revision{}
 		ff.GenerateStruct(rev)
 		errs = rev.Validate(context.Background())
 		if errs != nil {
