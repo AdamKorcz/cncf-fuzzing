@@ -4,8 +4,8 @@ import (
 	"testing"
 	nativeTesting "testing"
 
-	v1 "knative.dev/serving/pkg/apis/serving/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	servingv1 "knative.dev/serving/pkg/apis/serving/v1"
 
 	fakeservingclient "knative.dev/serving/pkg/client/injection/client/fake"
 	fakerevisioninformer "knative.dev/serving/pkg/client/injection/informers/serving/v1/revision/fake"
@@ -19,13 +19,17 @@ import (
 func FuzzRouteReconciler(f *testing.F) {
 	f.Fuzz(func(t *testing.T, data []byte) {
 		ff := fuzz.NewConsumer(data)
-		tt := v1.TrafficTarget{}
-		ff.GenerateStruct(&tt)
-		l := make(map[string]string)
-		ff.FuzzMap(&l)
 
-		testRouteName, err := ff.GetString()
-		if err != nil {
+		route := &servingv1.Route{}
+		ff.GenerateStruct(route)
+		errs := route.Validate(context.Background())
+		if len(errs) != 0 {
+			t.Skip()
+		}
+		rev := &servingv1
+		ff.GenerateStruct(rev)
+		errs = rev.Validate(context.Background())
+		if len(errs) != 0 {
 			t.Skip()
 		}
 
@@ -33,13 +37,8 @@ func FuzzRouteReconciler(f *testing.F) {
 		ctx, _, ctl, _, cf := newTestSetup(newT)
 		defer cf()
 
-		rev := Revision(testNamespace, "test-rev", MarkRevisionReady,
-			MarkInactive("NoTraffic", "no message"))
-
 		fakeservingclient.Get(ctx).ServingV1().Revisions(testNamespace).Create(ctx, rev, metav1.CreateOptions{})
 		fakerevisioninformer.Get(ctx).Informer().GetIndexer().Add(rev)
-
-		route := Route(testNamespace, testRouteName, WithSpecTraffic(tt), WithRouteLabel(l))
 
 		fakeservingclient.Get(ctx).ServingV1().Routes(testNamespace).Create(ctx, route, metav1.CreateOptions{})
 
