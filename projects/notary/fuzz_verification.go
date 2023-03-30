@@ -344,6 +344,37 @@ func (v *noSkipVerifier) Verify(ctx context.Context, desc ocispec.Descriptor, si
 	return vv.Verify(ctx, desc, signature, opts)
 }
 
+/*func createArtifactRef(ff *fuzz.ConsumeFuzzer) (string, error) {
+	artifactRef, err := ff.GetString()
+	if err != nil {
+		return "", err
+	}
+	parts := strings.SplitN(artifactRef, "/", 2)
+	if len(parts) == 1 {
+		refLength2, err := ff.GetInt()
+		if err != nil {
+			return
+		}
+		artifactRefSecondPart, err := ff.GetStringFrom(scopeChars, refLength2) 
+		var sb1 strings.Builder
+		sb1.WriteString(artifactRef)
+		sb1.WriteString("/")
+		sb1.WriteString(artifactRefSecondPart)
+		artifactRef = sb1.String()
+	}
+	if !strings.Contains(artifactRef, "@") {
+		added, err := ff.GetString()
+		if err != nil {
+			return
+		}
+		var sb strings.Builder
+		sb.WriteString(artifactRef)
+		sb.WriteString("@")
+		sb.WriteString(added)
+		artifactRef = sb.String()
+	}
+}*/
+
 func init() {
 	os.Mkdir("fuzz-dir", 0750)
 	dir.UserConfigDir = "fuzz-dir"
@@ -382,24 +413,22 @@ func FuzzVerify(f *testing.F) {
 			opts          notation.RemoteVerifyOptions
 		)
 		ff := fuzz.NewConsumer(policyDocBytes)
-		artifactRef, err := ff.GetString()
+		/*refLength, err := ff.GetInt()
 		if err != nil {
 			return
 		}
-		if !strings.Contains(artifactRef, "@") {
-			added, err := ff.GetString()
-			if err != nil {
-				return
-			}
-			var sb strings.Builder
-			sb.WriteString(artifactRef)
-			sb.WriteString("@")
-			sb.WriteString(added)
-			artifactRef = sb.String()
-		}
+		artifactRef, err = ff.GetStringFrom(scopeChars, refLength)
+		if err != nil {
+			return
+		}*/
+		//artifactRef = "localhost.com/hello@sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+		artifactRef = mock.SampleArtifactUri
 
 		policyBytes, err := ff.GetBytes()
 		if err != nil {
+			return
+		}
+		if len(policyBytes) < 100 {
 			return
 		}
 
@@ -412,9 +441,12 @@ func FuzzVerify(f *testing.F) {
 		go func(artifactRef string) {
 			defer wg.Done()
 			ref, err := orasRegistry.ParseReference(artifactRef)
-			if err != nil || ref.Reference == "" {
-				artifactError = fmt.Errorf("Invalid artifactRef")
+			if err != nil {
+				artifactError = fmt.Errorf("Invalid artifactRef: %s", err.Error())
 				return
+			}
+			if ref.Reference == "" { 
+				artifactError = fmt.Errorf("No Reference was created")
 			}
 		}(artifactRef)
 
@@ -425,9 +457,12 @@ func FuzzVerify(f *testing.F) {
 			m.Lock()
 			defer m.Unlock()
 			policies, err = createTrustPolicies(ff)
-			if err != nil || len(policies) == 0 {
-				policiesError = fmt.Errorf("Could not create policies")
+			if err != nil {
+				policiesError = fmt.Errorf("Could not create policies: %s", err.Error())
 				return
+			}
+			if len(policies) == 0 {
+				policiesError = fmt.Errorf("Created 0 policies")
 			}
 		}(ff2)
 
@@ -467,7 +502,7 @@ func FuzzVerify(f *testing.F) {
 				rs = append(rs, artifactPath)
 				newPolicies = append(newPolicies, trustpolicy.TrustPolicy{
 					Name:                  p.Name,
-					RegistryScopes:        p.RegistryScopes,
+					RegistryScopes:        rs,
 					SignatureVerification: p.SignatureVerification,
 					TrustStores:           p.TrustStores,
 					TrustedIdentities:     p.TrustedIdentities,
