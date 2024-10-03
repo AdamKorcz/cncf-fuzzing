@@ -100,9 +100,7 @@ public class SamlAssertionParserFuzzer {
       ByteArrayInputStream bais = new ByteArrayInputStream(input);
       XMLEventReader reader = XMLInputFactory.newInstance().createXMLEventReader(bais);
 
-      if (parser != null) {
-        parser.parse(reader);
-      }
+      parser.parse(reader);
     } catch (ParsingException | XMLStreamException | RuntimeException e) {
       // Known exception
     }
