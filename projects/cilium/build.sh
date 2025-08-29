@@ -1,4 +1,3 @@
-# install Go 1.19
 cd $SRC/cilium
 
 export CILIUM=$SRC/cncf-fuzzing/projects/cilium
@@ -8,8 +7,6 @@ cp $CILIUM/hubble_parser_fuzzer.go $SRC/cilium/pkg/hubble/parser/
 cp $CILIUM/labels_fuzzer.go $SRC/cilium/pkg/k8s/slim/k8s/apis/labels/
 mv $CILIUM/format_fuzzer.go $SRC/cilium/pkg/monitor/format
 mv $CILIUM/labelsfilter_fuzzer.go $SRC/cilium/pkg/labelsfilter/
-printf "package v2\nimport _ \"github.com/AdamKorcz/go-118-fuzz-build/testing\"\n" > $SRC/cilium/pkg/k8s/apis/cilium.io/v2/registerfuzzdep.go
-go mod tidy && go mod vendor
 
 # Disable logging
 sed -i 's/logrus\.InfoLevel/logrus.PanicLevel/g' $SRC/cilium/pkg/logging/logging.go
@@ -26,6 +23,6 @@ rm $SRC/cilium/pkg/lock/lock_debug.go
 cd $SRC/proxy
 mv $CILIUM/OnData_fuzzer.go $SRC/proxy/proxylib/cassandra/
 mv $SRC/proxy/proxylib/cassandra/cassandraparser_test.go $SRC/proxy/proxylib/cassandra/cassandraparser_test_fuzz.go
-go mod tidy && go mod vendor
+#go mod tidy && go mod vendor
 compile_go_fuzzer github.com/cilium/proxy/proxylib/cassandra FuzzMultipleParsers fuzz_multiple_parsers
 cd -
